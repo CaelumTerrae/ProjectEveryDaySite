@@ -15,7 +15,7 @@ def hello_world():
 
 @application.route('/day/<int:num>')
 def project(num):
-  return render_template("/days/1.html")
+  return render_template("/days/" + str(num) + ".html")
 
 if __name__ == '__main__':
     application.run()
