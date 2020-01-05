@@ -27,6 +27,17 @@
             <!-- Me -->
               <article id="post" class="panel">
                 {% block article %}{% endblock %}
+
+                {%if num == 1%}
+                  <a href="/day/{{num + 1}}"><p style="float:right">Tomorrow's Post</p></a>
+                {%elif num == numPages%}
+                  <a href="/day/{{num - 1}}" style="float:left">Yesterday's Post</a>
+                {%else%}
+                <div>
+                  <a href="/day/{{num - 1}}" style="float:left">Yesterday's Post</a>
+                  <a href="/day/{{num + 1}}"><p style="float:right">Tomorrow's Post</p></a>
+                </div>
+                {%endif%}
               </article>
           </div>
 

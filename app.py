@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 application = Flask(__name__)
+numPages = 3 #update this daily, and change this to be a request to database when that is set up
 
 # Ensure responses aren't cached
 @application.after_request
@@ -15,7 +16,7 @@ def hello_world():
 
 @application.route('/day/<int:num>')
 def project(num):
-  return render_template("/days/" + str(num) + ".html")
+  return render_template("/days/" + str(num) + ".html",num=num,numPages=numPages)
 
 if __name__ == '__main__':
     application.run()
