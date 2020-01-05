@@ -10,9 +10,22 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
-@application.route('/')
+@application.route('/',methods=['POST','GET'])
 def hello_world():
+  if request.method =='GET':
     return render_template("index.html")
+  else:
+    user = {
+      "name": request.form["name"],
+      "email": request.form["email"],
+      "subject": request.form["subject"],
+      "message": request.form["message"]
+    }
+    if user["name"] and user["email"] and user["subject"] and user["message"]:
+      return render_template("index.html",success=True,returnAddress="contact")
+    else:
+      messages = ["Missing fields!"]
+      return render_template("index.html", messages=messages, returnAddress="contact")
 
 @application.route('/day/<int:num>')
 def project(num):
