@@ -10,3 +10,4 @@ static/.DS_Store
 static/css/.DS_Store
 virt/
 __pycache__/
+secrets.py
