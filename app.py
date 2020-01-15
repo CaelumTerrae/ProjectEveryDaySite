@@ -14,7 +14,7 @@ application.config["MAIL_PASSWORD"] = emailsecret["password"]
 
 mail.init_app(application)
 
-numPages = 7 #update this daily, and change this to be a request to database when that is set up
+numPages = 10 #update this daily, and change this to be a request to database when that is set up
 
 # Ensure responses aren't cached
 @application.after_request
@@ -27,7 +27,7 @@ def after_request(response):
 @application.route('/',methods=['POST','GET'])
 def hello_world():
   if request.method =='GET':
-    return render_template("index.html")
+    return render_template("index.html", numPages=numPages)
   else:
     contact = {
       "name": request.form["name"],

@@ -1,0 +1,60 @@
+{% extends "/days/daybase.html" %}
+{% block article %}
+<header>
+<h2>Day 9 - 1/10/2020</h2>
+</header>
+
+<h3>Intro</h3>
+<p>A couple of days ago, I mentioned in <a href="/day/6">this post</a> that I finished the "contact me" page on the website. Since that point in time, some odd things have happened.</p>
+
+<h3>The Problem?</h3>
+<p>After getting the "contact me" form up, I have received some correspondance from readers. Particularly friends that I explicitly told to email me. Here's one example:</p>
+<section>
+  <div class="row">
+    <div class="image fit">
+        <img src="/static/images/LG.jpg" alt="LG Email">
+    </div>
+  </div>
+</section>
+
+<p>I have also received a bunch of what I and others sometimes call "spam" emails, that do not come from names or email addresses that I recognize. Here are some examples of those.</p>
+<section>
+  <div class="row">
+    <div class="image fit">
+      <img src="/static/images/bademail1.jpg" alt="bad email 1">
+    </div>
+  </div>
+  <div class="row">
+    <div class="image fit">
+      <img src="/static/images/bademail2.jpg" alt="bad email 2">
+    </div>
+  </div>
+  <div class="row">
+    <div class="image fit">
+      <img src="/static/images/bademail3.jpg" alt="bad email 3">
+    </div>
+  </div>
+</section>
+
+<p>The last one seems to be anomaly, so I will focus on analyzing emails similar to the first two. I think it helps to do a breakdown of the type of email, and then explain why exactly I am getting this type of email.</p>
+
+<h3>The Breakdown</h3>
+<p>The first two emails (as well as others that I have received like it) have a few things in common. All of the emails have the following odd format:</p>
+<ul>
+  <li>Real-seeming names</li>
+  <li>Email addresses that suggests a name different from the name on form</li>
+  <li>One (1) word subject line</li>
+  <li>Short phrase or one (1) word message</li>
+</ul>
+<p>To find out a little more about the emails, I plugged them into the site <a href="https://haveibeenpwned.com/">haveibeenpwned.com</a>. The site takes in an email address, and then says whether or not the email has been used on a site that has had a security breach. This is informative, because it tells us both whether or not the emails are from "real" accounts, and whether or not the emails are from accounts that may have been compromised. (Definitely check out the site on your own email. You may be surprised how unsecure you are.) Most of the email addresses in the spam messages I received have been located on compromised websites.</p>
+
+<p>All of this suggests that a spambot(s) has been sending messages to me through my contact form. The obvious next question is: why?</p>
+
+<h3>Why</h3>
+<p>Originally, I thought that the spam messages might be a sort of prodding by a spam bot to see if there are any vulnerabilities in the website. I took a look to see what sort of thing someone could find out by sending the form, and unless there is something extremely complicated going on, it doesn't look like it is even possible to get any information back from this. Also I used a relatively secure library to handle contact me forms, which should eliminate any potential security leaks. Doing more research online, I found out that these sort of messages are extremely common. The reason? Contact forms look a lot like login forms. </p>
+<p>Chances are that the bot that sent the messages is not a "spam bot", but a "login bot". The bot likely goes through the web looking for login-forms, and attempting to login to different websites with credentials it pulled from a list of emails online. Doing it on random sites instead of on popular sites like Google or Facebook increases its chance of success, since random sites are much more likely to be less secure than these well-established platforms. Since the "contact me" form looks a lot like a login form, the bot must have attempted to login, and in the process inadvertently sent me an email.</p>
+
+<p>Or at least that's my working theory. Send me a message on the form if you have any other ideas!</p>
+
+<p>Until tomorrow,<br>GPL</p>
+{% endblock %}
