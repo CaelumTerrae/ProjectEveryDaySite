@@ -1,0 +1,88 @@
+{% extends "/days/daybase.html" %}
+{% block article %}
+<script src="https://cdn.jsdelivr.net/npm/p5@0.10.2/lib/p5.min.js"></script>
+<header>
+<h2>Day 13 - 1/14/2020</h2>
+</header>
+
+<h3>Intro</h3>
+<p>Been making more headway on p5.js sketches. Here's one more I worked on today:</p>
+
+<h3>Bounce</h3>
+<script>
+  function update(x, increase){
+    if (increase == true){
+      return x + 1
+    }else{
+      return x - 1
+    }
+  }
+
+  let manyCubes = new p5( (sketch) => {
+      var count = 0;
+      var r = 0;
+      var b = 0;
+      var g = 0;
+      var x = sketch.random(-100,100);
+      var y = sketch.random(-100,100);
+      var z = sketch.random(-100,100);
+      var right = true;
+      var up = true;
+      var forward = true;
+
+      sketch.setup = () => {
+        var canvas = sketch.createCanvas(500, 500, sketch.WEBGL);
+        canvas.parent('cubes-sketch-holder');
+        sketch.background(200);
+      }
+
+      sketch.draw = () => {
+        if (count == 100){
+          count = 0;
+          r = sketch.random(256);
+          b = sketch.random(256);
+          g = sketch.random(256);
+        }
+
+        if (x >= 100){
+          right = false;
+        }
+
+        if (x <= -100){
+          right = true;
+        }
+
+        if (y >= 100){
+          up = false;
+        }
+
+        if (y <= -100){
+          up = true;
+        }
+
+        if (z >= 100){
+          forward = false;
+        }
+
+        if (z <= -100){
+          forward = true;
+        }
+
+        x = update(x,right)
+        y = update(y,up)
+        z = update(z,forward)
+
+        sketch.background(r,b,g)
+        sketch.translate(x,y,z)
+        sketch.rotateX(sketch.frameCount * 0.01);
+        sketch.rotateY(sketch.frameCount * 0.01);
+        sketch.box(150);
+
+        count += 1;
+      }
+  });
+</script>
+<div id="cubes-sketch-holder"></div>
+
+<p>Until tomorrow,<br>GPL</p>
+{% endblock %}
