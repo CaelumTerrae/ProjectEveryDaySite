@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request
+import os
+from flask import Flask, render_template, request, send_from_directory
 from secrets import emailsecret
 from flask_mail import Message, Mail
 
@@ -14,7 +15,7 @@ application.config["MAIL_PASSWORD"] = emailsecret["password"]
 
 mail.init_app(application)
 
-numPages = 10 #update this daily, and change this to be a request to database when that is set up
+numPages = 13 #update this daily, and change this to be a request to database when that is set up
 
 # Ensure responses aren't cached
 @application.after_request
@@ -23,6 +24,12 @@ def after_request(response):
     response.headers["Expires"] = 0
     response.headers["Pragma"] = "no-cache"
     return response
+
+@application.route('/favicon.ico')
+def favicon():
+  return send_from_directory(os.path.join(app.root_path, 'static'),
+    'favicon.ico', mimetype='image/vnd.microsoft.icon')
+
 
 @application.route('/',methods=['POST','GET'])
 def hello_world():
