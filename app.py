@@ -15,7 +15,7 @@ application.config["MAIL_PASSWORD"] = emailsecret["password"]
 
 mail.init_app(application)
 
-numPages = 13 #update this daily, and change this to be a request to database when that is set up
+numPages = 14 #update this daily, and change this to be a request to database when that is set up
 
 # Ensure responses aren't cached
 @application.after_request

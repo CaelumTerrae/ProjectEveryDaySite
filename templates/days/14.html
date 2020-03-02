@@ -1,11 +1,95 @@
 {% extends "/days/daybase.html" %}
 {% block article %}
-<header>
-<h2>Day 14 - 1/15/2020</h2>
-</header>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis-network.min.js"></script>
+<style type="text/css">
+  #mynetwork {
+    width: 100%;
+    height: 95vh;
+    border: 1px solid lightgray;
+  }
+</style>
+
+<h2>Day 14 - 3/2/2020</h2>
 
 <h3>Intro</h3>
-<p></p>
+<p>This is a project I have been working on for my Ancestry class at school! The project was to do a visualization of my family tree and write a small response.</p>
 
+<h3>Family Graph</h3>
+<p>As a computer scientist, when I hear the word "tree", I think of graphs. Trees are a particular type of graph, where any two vertices are connected by one path, and each node has two parents. In my family, where many individuals either do not know their parents because they were brought up as orphans, or where connections to family are separated by years and oceans, a better representation of the relationships in my family would be through a broader graph. I made a javascript visualization to show exactly the types of relationships.</p>
+<p>Arrows point from a child to their mother, and dashed lines show that two individuals are married.</p>
+
+<div id="mynetwork"></div>
+
+<script type="text/javascript">
+
+  // create an array with nodes
+var nodes = new vis.DataSet([
+  { id: 1, label: "Gavin Lifrieri" },
+  { id: 2, label: "Haley Lifrieri" },
+  { id: 3, label: "Anthony Lifrieri" },
+  { id: 4, label: "Mildred Miqueo" },
+  { id: 5, label: "Vincent Patrick Ugaro" },
+  { id: 6, label: "Patrick Vincent Ugaro" },
+  { id: 7, label: "Alexandra Vizarro" },
+  { id: 8, label: "Jose Miqueo" },
+  { id: 9, label: "Jose Manuel Miqueo" },
+  { id: 10, label: "Manuel Miqueo" },
+  { id: 11, label: "Maricela Navarro" },
+  { id: 12, label: "Jose Miqueo" },
+  { id: 13, label: "Juana Lorenzo" },
+  { id: 14, label: "Antonia Mirabel" },
+  { id: 15, label: "Rosa Miqueo" },
+  { id: 16, label: "Jose Miqueo's Father" },
+  { id: 17, label: "Diana Mirabal" },
+  { id: 18, label: "Jose Lorenzo" },
+  { id: 19, label: "Margarita Navarro" },
+  { id: 21, label: "Navarro Patriarch" },
+  { id: 20, label: "Grace Miqueo" }
+]);
+
+// create an array with edges
+var edges = new vis.DataSet([
+  { from: 3, to: 4, dashes: [20,10], background: false },//mom to dad
+  { from: 1, to: 4,arrows:"to", dashes: false, background: false },//gavin to mom
+  { from: 2, to: 4,arrows:"to", dashes: false, background: false },//haley to mom
+  { from: 3, to: 7,arrows:"to", dashes: false, background: false },//alexandra to dad
+  { from: 5, to: 7, arrows:"to",dashes: false, background: false },//alexandra to vincent
+  { from: 6, to: 7, dashes: [20,10], background: false },//alexandra to patrick
+  { from: 4, to: 11, arrows:"to", dashes: false, background: false },//mom to maricela
+  { from: 11, to: 12, dashes: [20,10], background: false },//maricela to old Jose
+  { from: 12, to: 20, dashes: [20,10], background: false },//old Jose to Grace
+  { from: 8, to: 11,arrows:"to", dashes: false, background: false },//jose to maricela
+  { from: 9, to: 20,arrows:"to", dashes: false, background: false },//jose maneul to grace
+  { from: 10, to: 20,arrows:"to", dashes: false, background: false },//manuel to grace
+  { from: 12, to: 15,arrows:"to", dashes: false, background: false },//old jose to rosa
+  { from: 13, to: 15,arrows:"to", dashes: false, background: false },//juana to rosa
+  { from: 14, to: 15,arrows:"to", dashes: false, background: false },//antonia to rosa
+  { from: 16, to: 15, dashes: [20,10], background: false },//rosa to jose miqueos father
+  { from: 17, to: 14,arrows:"to", dashes: false, background: false },//diana to antonia
+  { from: 18, to: 13,arrows:"to", dashes: false, background: false },//jose to juana
+  { from: 11, to: 21,arrows:"to", dashes: false, background: false },//maricela to father
+  { from: 19, to: 21,arrows:"to", dashes: false, background: false }//margerita to father
+
+]);
+
+// create a network
+var container = document.getElementById("mynetwork");
+var data = {
+  nodes: nodes,
+  edges: edges
+};
+var options = {
+  edges: {
+    shadow: true,
+    smooth: true,
+    background: {
+      enabled: true,
+      color: "#ff0000"
+    }
+  }
+};
+
+var network = new vis.Network(container, data, options);
+</script>
 <p>Until tomorrow,<br>GPL</p>
 {% endblock %}
